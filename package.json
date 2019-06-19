@@ -1,5 +1,5 @@
 {
-  "name": "@sishu/screen-shot",
+  "name": "screen-shot-cf",
   "version": "0.0.2",
   "main": "dist/main.js",
   "files": [
@@ -68,7 +68,7 @@
     "webpack-dev-server": "^3.5.1",
     "webpack-merge": "^4.2.1"
   },
-  "author": "chenfeng",
+  "author": "chenyuhu",
   "license": "ISC",
   "description": "截屏，保存截屏为本地文件",
   "repository": {
