@@ -1,6 +1,6 @@
 import debug from 'electron-debug'
 import { app, globalShortcut } from 'electron'
-import ScreenShot from './shortcut-capture'
+import ScreenShot from './screen-shot'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 app.on('ready', () => {
@@ -8,10 +8,10 @@ app.on('ready', () => {
     console.log('Unable to install `vue-devtools`: \n', err)
   })
   const sc = new ScreenShot()
-  globalShortcut.register('ctrl+shift+a', () => sc.screenShot())
-  sc.on('Screenshot', ({ dataURL, bounds }) => console.log('capture', bounds))
-  debug({ showDevTools: 'undocked' })
+  globalShortcut.register('ctrl+shift+a', () => sc.ScreenShot())
+  sc.on('capture', ({ dataURL, bounds }) => console.log('capture', bounds))
   sc.on('saveFile', () => {})
+  debug({ showDevTools: 'undocked' })
 })
 
 app.on('window-all-closed', () => {

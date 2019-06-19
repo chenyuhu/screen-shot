@@ -75,10 +75,10 @@ export default {
       this.show()
     },
     show () {
-      ipcRenderer.send('ShortcutCapture::SHOW', this.bounds)
+      ipcRenderer.send('ScreenShot::SHOW', this.bounds)
     },
     hide () {
-      ipcRenderer.send('ShortcutCapture::HIDE', this.bounds)
+      ipcRenderer.send('ScreenShot::HIDE', this.bounds)
     },
     drawBackground ({ x, y, width, height, thumbnail }) {
       // 确保dom更新后再更新canvas
@@ -201,13 +201,15 @@ export default {
     done () {
       const ctx = this.$refs.rectangle.ctx
       const dataURL = ctx.canvas.toDataURL('image/png')
-      ipcRenderer.send('ScreenShot::SCREENSHOT', dataURL, this.rect)
-      this.hide()
+      ctx.canvas.toBlob(blob => {
+        ipcRenderer.send('ScreenShot::CAPTURE', { dataURL, blob }, this.rect)
+        this.hide()
+      })
     },
-    revoke(){
+    revoke () {
       const ctx = this.$refs.rectangle.ctx
       const dataURL = ctx.canvas.toDataURL('image/png')
-      ipcRenderer.send('ScreenShot::SAVEFILE',dataURL)
+      ipcRenderer.send('ScreenShot::SAVEFILE', dataURL, this.rect)
       this.hide()
     }
   }

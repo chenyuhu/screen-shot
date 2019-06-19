@@ -7,7 +7,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 module.exports = merge(baseWebpackConfig, {
   mode: 'production',
   entry: {
-    main: path.resolve(config.srcMainDir, 'shortcut-capture.js')
+    main: path.resolve(config.srcMainDir, 'screen-shot.js')
   },
   output: {
     path: config.distDir,

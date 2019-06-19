@@ -1,25 +1,20 @@
 <template lang="pug">
 .toolbar(:style="style")
-  //- .toolbar-button(
-  //-   title="涂鸦",
-  //-   @click.stop="click('brush')"
-  //- )
-  //-   i.iconfont-brush
   .toolbar-button(
     title="保存",
     @click.stop="click('revoke')"
   )
-    i.iconfont-revoke
+    i.iconfont-baocun
   .toolbar-button(
     title="退出"
     @click.stop="click('cancel')"
   )
-    i.iconfont-cancel
+    i.iconfont-quxiao
   .toolbar-button(
     title="完成"
     @click.stop="click('done')"
   )
-    i.iconfont-done
+    i.iconfont-wancheng
 </template>
 
 <script>
@@ -60,7 +55,7 @@ export default {
 @button-size: 26px;
 
 .toolbar {
-  width: @button-size * 2 + 2px;
+  width: @button-size * 3 + 2px;
   height: 28px;
   background-color: rgba(0, 0, 0, 0.9);
   display: block;

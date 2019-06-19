@@ -1,8 +1,7 @@
 {
-  "name": "screen-shot",
+  "name": "@sishu/screen-shot",
   "version": "0.0.1",
   "main": "dist/main.js",
-  "license": "MIT",
   "files": [
     "dist/**"
   ],
@@ -16,6 +15,9 @@
     "build:main": "webpack --config build/main/webpack.prod.conf.js",
     "build:renderer": "webpack --config build/renderer/webpack.prod.conf.js",
     "release": "npm run build && npm publish"
+  },
+  "peerDependencies": {
+    "electron": ">=2"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
@@ -65,5 +67,8 @@
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.1",
     "webpack-merge": "^4.2.1"
-  }
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

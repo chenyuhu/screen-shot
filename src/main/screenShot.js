@@ -2,15 +2,17 @@ const path = require('path')
 const Events = require('events')
 const { ipcMain, BrowserWindow, nativeImage, clipboard, dialog } = require('electron')
 const fs = require('fs')
+console.log(`file://${path.join(__dirname, '/renderer/index.html')}`, process.env.NODE_ENV)
 
 export default class ScreenShot extends Events {
   /**
    * 是否使用剪切板
    * @param {*} param0
    */
-  constructor({ isUseClipboard = true } = {}) {
+  constructor ({ isUseClipboard = true } = {}) {
     super()
     this.onScreenShot(isUseClipboard)
+    this.onSaveFile()
     this.onShow()
     this.onHide()
   }
@@ -25,9 +27,9 @@ export default class ScreenShot extends Events {
   /**
    * 创建截图窗口对象
    */
-  static initShotWin() {
+  static initShotWin () {
     const shotWin = new BrowserWindow({
-      title: 'shortcut-capture',
+      title: 'ScreenShot',
       width: 0,
       height: 0,
       x: 0,
@@ -53,7 +55,8 @@ export default class ScreenShot extends Events {
       minimizable: false,
       maximizable: false,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        webSecurity: false
       }
     })
 
@@ -68,7 +71,7 @@ export default class ScreenShot extends Events {
   /**
    * 调用截图
    */
-  screenShot() {
+  screenShot () {
     if (this.shotWin) {
       this.shotWin.close()
     }
@@ -79,12 +82,12 @@ export default class ScreenShot extends Events {
    * 绑定截图后确定后的时间回调
    * @param {*} isUseClipboard
    */
-  onScreenShot(isUseClipboard) {
+  onScreenShot (isUseClipboard) {
     ipcMain.on('ScreenShot::SCREENSHOT', (e, dataURL, bounds) => {
       if (isUseClipboard) {
         clipboard.writeImage(nativeImage.createFromDataURL(dataURL))
       }
-      this.emit('Screenshot', { dataURL, bounds })
+      this.emit('screenShot', { dataURL, bounds })
     })
   }
 
@@ -92,7 +95,7 @@ export default class ScreenShot extends Events {
    * 保存图片
    * @param {*} isSaveFile
    */
-  onSaveFile(isSaveFile) {
+  onSaveFile (isSaveFile) {
     ipcMain.on('ScreenShot::SAVEFILE', (e, dataURL) => {
       if (isSaveFile) {
         dialog.showSaveDialog(
@@ -120,7 +123,7 @@ export default class ScreenShot extends Events {
   /**
    * 绑定窗口显示事件
    */
-  onShow() {
+  onShow () {
     ipcMain.on('ScreenShot::SHOW', (e, bounds) => {
       if (!this.shotWin) return
       this.shotWin.show()
@@ -136,8 +139,8 @@ export default class ScreenShot extends Events {
   /**
    * 绑定窗口隐藏事件
    */
-  onHide() {
-    ipcMain.on('ShortcutCapture::HIDE', () => {
+  onHide () {
+    ipcMain.on('ScreenShot::HIDE', () => {
       if (!this.shotWin) return
       this.shotWin.hide()
       this.shotWin.setSimpleFullScreen(false)
