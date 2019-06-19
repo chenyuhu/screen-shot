@@ -68,7 +68,19 @@
     "webpack-dev-server": "^3.5.1",
     "webpack-merge": "^4.2.1"
   },
-  "author": "",
+  "author": "chenfeng",
   "license": "ISC",
-  "description": ""
+  "description": "截屏，保存截屏为本地文件",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenyuhu/screen-shot.git"
+  },
+  "keywords": [
+    "electron",
+    "截屏"
+  ],
+  "bugs": {
+    "url": "https://github.com/chenyuhu/screen-shot/issues"
+  },
+  "homepage": "https://github.com/chenyuhu/screen-shot#readme"
 }
