@@ -1,5 +1,6 @@
 <template lang="pug">
 .app
+  @click.right='hide'
   background(
     ref="background"
     :bounds="bounds"
